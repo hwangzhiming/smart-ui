@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title> jQuery Master Password Plugin </title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../dist/smartui.masterpassword.js"></script>
+        <style>
+            body{
+                background: #F2F2F2;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Master Password</h1>
+        <input type="text" id="masterPasswordText">
+        <button onclick="showDemo()">Click</button>
+        <!--pre>
+            <div class="master-password">
+                <div class="master-password-content">
+                    <div class="master-password-title">ENTER YOUR MASTER PASSWORD</div>
+                    <div class="master-password-description">The passwords of your connections will be stored encrypted in our database, a master password will be used to access the passwords.</div>
+                    <div class="master-password-fields">
+                        <div class="master-password-field">1</div>
+                        <div class="master-password-field">2</div>
+                        <div class="master-password-field"></div>
+                        <div class="master-password-field"></div>
+                    </div>
+                    <div class="master-password-actions">
+                        <div class="master-password-button primary">Enter</div>
+                        <div class="master-password-button">Cancel</div>
+                    </div>
+                </div>
+            </div>
+        </pre-->
+        <script>
+            function showDemo() {
+                $('#masterPasswordText').masterPassword({});
+            };
+        </script>
+    </body>
+</html>

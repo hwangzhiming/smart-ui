@@ -1,0 +1,38 @@
+{
+  "name": "jquery.masterpassword",
+  "version": "1.0.0",
+  "description": "A jQuery plugin for master password validation",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-sass": "^2.3.2",
+    "systemjs": "^0.19.41"
+  },
+  "engines": {
+    "node": "6.3.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
+    "jquery": "^3.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hwangzhiming/jquery.masterpassword.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hwangzhiming/jquery.masterpassword/issues"
+  },
+  "homepage": "https://github.com/hwangzhiming/jquery.masterpassword#readme"
+}
