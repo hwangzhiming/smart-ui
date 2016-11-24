@@ -2,16 +2,19 @@
     <head>
         <title> jQuery Master Password Plugin </title>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="../dist/smartui.masterpassword.js"></script>
         <style>
             body{
                 background: #F2F2F2;
             }
         </style>
+        <link rel="stylesheet" href="../dist/smart.masterpassword.css">
+        <script src="../dist/smartui.dialog.js"></script>
+        <link rel="stylesheet" href="../dist/smart.dialog.css">
+        <script src="../dist/smartui.masterpassword.js"></script>
     </head>
     <body>
         <h1>Master Password</h1>
-        <input type="text" id="masterPasswordText">
+        <input type="password" id="masterPasswordText" length="5">
         <button onclick="showDemo()">Click</button>
         <!--pre>
             <div class="master-password">
@@ -32,8 +35,9 @@
             </div>
         </pre-->
         <script>
+            $('#masterPasswordText').masterPassword();
             function showDemo() {
-                $('#masterPasswordText').masterPassword({});
+                sui.modal();
             };
         </script>
     </body>

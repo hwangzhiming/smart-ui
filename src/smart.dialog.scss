@@ -1,0 +1,31 @@
+.smart-ui.smart-ui-modal{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 110;
+    background: rgba(255, 255, 255, 0.4);
+    overflow: auto;
+    display: flex;
+    -ms-display: flex;
+    -moz-display: flex;
+    -webkit-display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .smart-ui-modal-content{
+        min-width:200px;
+        background: #fff;
+        border: 1px solid #ECECEC;
+        padding: 10px 20px;
+        border-radius: 4px;
+    }
+    .smart-ui-modal-close{
+
+    }
+
+    &.smart-ui-modal-default{
+
+    }
+}
