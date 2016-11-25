@@ -10,6 +10,7 @@
             }
             var currentActive = 0;
             var passwordLength = parseInt(elem.attr('length') || '4');
+            var autofocus = elem.attr('autofocus') ? true : false;
             var theme = elem.attr('theme') || 'smart-ui-master-password-theme-default';
             var commponent = $('<div class="smart-ui smart-ui-master-password ' + theme + '"></div>');
             var fields = [];
@@ -53,6 +54,9 @@
                 commponent.append(field);
             };
             elem.after(commponent);
+            if (autofocus && fields.length) {
+                fields[0].focus();
+            };
             elem.data('inited', true);
             return commponent;
         };

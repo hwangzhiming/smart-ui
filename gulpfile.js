@@ -4,6 +4,8 @@ const uglify  = require('gulp-uglify');
 const rename  = require('gulp-rename');
 const clean  = require('gulp-clean');
 const sass = require('gulp-sass');
+const concat = require('gulp-concat');
+const cssmin = require('gulp-cssmin');
 const runSequence = require('gulp-run-sequence');
 
 
@@ -37,6 +39,7 @@ gulp.task('publish:es6', ['build:es6'], ()=> {
 
 gulp.task('publish:scss', ['build:scss'], ()=> {
     return gulp.src('./dist/**/*.css')
+        .pipe(cssmin())
         .pipe(rename({
             suffix: '.min'
         }))
@@ -44,7 +47,21 @@ gulp.task('publish:scss', ['build:scss'], ()=> {
 });
 
 gulp.task('publish', ()=> {
-    return runSequence('clean', 'publish:es6', 'publish:scss');
+    return runSequence('clean', 'publish:es6', 'publish:scss', 'pack:css', 'pack:js');
+});
+
+gulp.task('pack:css', ()=> {
+    return gulp.src('./dist/**/*.min.css')
+        .pipe(concat('smartui.min.css'))
+        .pipe(gulp.dest('./dist/'));
+
+});
+
+gulp.task('pack:js', ()=> {
+    return gulp.src('./dist/**/*.min.js')
+        .pipe(concat('smartui.min.js'))
+        .pipe(gulp.dest('./dist/'));
+
 });
 
 gulp.task('watch',() => {

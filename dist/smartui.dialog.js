@@ -12,8 +12,9 @@
             buttons: []
         }, options);
         var modal = $('<div class="smart-ui smart-ui-modal ' + def.theme + '"/>');
-        var modalContent = $('<div class="smart-ui smart-ui-modal-content"/>');
-        var modalClosebtn = $('<div class="smart-ui smart-ui-modal-close">CLOSE</div>');
+        var modalContent = $('<div class="smart-ui-modal-content"/>');
+        var signDom = $('<div class="smart-ui-modal-sign ' + def.type + '"><span></span></div>');
+        var modalClosebtn = $('<div class="smart-ui-modal-close">CLOSE</div>');
         var title = $('<div class="smart-ui-modal-title">' + def.title + '</div>');
         var placeholder = $('<div class="smart-ui-modal-placeholder"></div>');
         placeholder.append(def.message);
@@ -38,7 +39,7 @@
             placeholder.append(buttons);
         }
 
-        modalContent.append([modalClosebtn, title, placeholder]);
+        modalContent.append([signDom, modalClosebtn, title, placeholder]);
         modal.append(modalContent).appendTo($('body'));
         modal.open = function () {
             modal.addClass('opened');
@@ -92,12 +93,47 @@
             title: 'Prompt',
             message: 'This is Prompt!',
             fieldType: 'text',
-            fieldMaxLength: null,
+            maxLength: null,
+            required: true,
+            pattern: null,
             button: { type: 'warning', text: 'OK' }
         }, options);
 
+        var validate = function validate(val) {
+            var addCls = function addCls(b, cls) {
+                if (b) {
+                    input.addClass(cls);
+                } else {
+                    input.removeClass(cls);
+                };
+                return b;
+            };
+            if (addCls(def.required && !val, 'sui-error sui-require')) {
+                return false;
+            };
+
+            if (def.pattern) {
+                var reg = new RegExp(def.pattern, 'ig');
+                if (addCls(!reg.test(val), 'sui-error sui-pattern-error')) {
+                    return false;
+                }
+            };
+
+            if (def.maxLength) {
+                if (addCls(val.length > def.maxLength, 'sui-error sui-max-length-error')) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
         def.button.func = function () {
             var val = input.val();
+            if (!validate(val)) {
+                input.focus();
+                return;
+            };
             deferred.resolve(val);
             dialog.close();
         };
@@ -109,9 +145,15 @@
                 modal.close();
             }
         };
+
         var content = $('<div></div>');
         var message = $('<p>' + def.message + '</p>');
-        input = $('<input class="smart-ui-modal-form-field" type="' + def.fieldType + '" maxlength="' + def.fieldMaxLength + '"/>');
+        input = $('<input class="smart-ui-modal-form-field" type="' + def.fieldType + '" maxlength="' + def.maxLength + '"/>');
+
+        input.on('keyup', function () {
+            var val = input.val();
+            validate(val);
+        });
         content.append([message, input]);
         dialog = this.modal({
             type: def.type,
@@ -133,18 +175,25 @@
             title: 'Master Password',
             message: 'Please enter your master password!',
             fieldType: 'password',
-            fieldMaxLength: null,
+            maxLength: 4,
+            required: true,
             button: { type: 'warning', text: 'OK' }
         }, options);
 
         def.button.func = function () {
             var val = input.val();
+            if (def.required && !val) {
+                return;
+            }
+            if (def.maxLength && val.length < def.maxLength) {
+                return;
+            }
             deferred.resolve(val);
             dialog.close();
         };
         var content = $('<div></div>');
         var message = $('<p>' + def.message + '</p>');
-        input = $('<input class="smart-ui-modal-form-field" type="' + def.fieldType + '" maxlength="' + def.fieldMaxLength + '"/>');
+        input = $('<input class="smart-ui-modal-form-field" autofocus="true" type="' + def.fieldType + '" maxlength="' + def.fieldMaxLength + '"/>');
         content.append([message, input]);
         dialog = this.modal({
             type: def.type,

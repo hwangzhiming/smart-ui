@@ -7,10 +7,9 @@
                 background: #F2F2F2;
             }
         </style>
-        <link rel="stylesheet" href="../dist/smart.masterpassword.css">
-        <script src="../dist/smartui.dialog.js"></script>
-        <link rel="stylesheet" href="../dist/smart.dialog.css">
-        <script src="../dist/smartui.masterpassword.js"></script>
+
+        <link rel="stylesheet" href="../dist/smartui.min.css">
+        <script src="../dist/smartui.min.js"></script>
     </head>
     <body>
         <h1>Master Password</h1>
@@ -37,11 +36,27 @@
         <script>
             $('#masterPasswordText').masterPassword();
             function showDemo() {
-                sui.masterPassword().then((rs)=>{
+                sui.masterPassword({
+                    title:'ENTER YOUR MASTER PASSWORD',
+                    theme: 'smart-ui-modal-warning',
+                    button: { type:'danger', text: 'Enter'},
+                    message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
+                }).then((rs)=>{
                     alert(rs);
                 }, ()=>{
                     alert('cancel');
                 });
+                /*sui.prompt({
+                    message: 'test',
+                    pattern:'\\d',
+                    maxLength: 4,
+                    theme: 'smart-ui-modal-warning'
+                }).then((rs)=>{
+                    alert(rs);
+                }, ()=>{
+                    alert('cancel');
+                });*/
+                //sui.alert('alert');
             };
         </script>
     </body>
