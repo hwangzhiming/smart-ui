@@ -1,8 +1,10 @@
 "use strict";
 ;(function ($) {
     $.fn.masterPassword = function (options) {
-
-        const init = function (elem) {
+        let def =  $.extend({
+            callback: null
+        }, options);
+        const init = function (elem, opt) {
             elem.hide();
             if (elem.data('inited')) {
                 return;
@@ -18,7 +20,12 @@
                 for (let i = 0; i < fields.length; i++) {
                     rs.push(fields[i].val());
                 }
-                elem.val(rs.join(''));
+                const val = rs.join('');
+                elem.val(val);
+
+                if(val.length === passwordLength && opt.callback){
+                    opt.callback(val);
+                }
             };
             for(let i =0; i < passwordLength; i++){
                 let field = $(`<input class="smart-ui-master-password-field" maxlength="1" data-id="${i}" type="${elem.attr('type')}"/>`);
@@ -65,7 +72,7 @@
         };
 
         $(this).each(function (i, item) {
-            init($(item));
+            init($(item), def);
         });
     }
 })(jQuery);

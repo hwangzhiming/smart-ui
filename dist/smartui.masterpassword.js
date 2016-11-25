@@ -2,8 +2,10 @@
 
 ;(function ($) {
     $.fn.masterPassword = function (options) {
-
-        var init = function init(elem) {
+        var def = $.extend({
+            callback: null
+        }, options);
+        var init = function init(elem, opt) {
             elem.hide();
             if (elem.data('inited')) {
                 return;
@@ -19,7 +21,12 @@
                 for (var i = 0; i < fields.length; i++) {
                     rs.push(fields[i].val());
                 }
-                elem.val(rs.join(''));
+                var val = rs.join('');
+                elem.val(val);
+
+                if (val.length === passwordLength && opt.callback) {
+                    opt.callback(val);
+                }
             };
             for (var i = 0; i < passwordLength; i++) {
                 var field = $('<input class="smart-ui-master-password-field" maxlength="1" data-id="' + i + '" type="' + elem.attr('type') + '"/>');
@@ -62,7 +69,7 @@
         };
 
         $(this).each(function (i, item) {
-            init($(item));
+            init($(item), def);
         });
     };
 })(jQuery);

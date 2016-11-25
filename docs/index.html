@@ -1,15 +1,16 @@
 <html>
     <head>
         <title> jQuery Master Password Plugin </title>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
         <style>
             body{
                 background: #F2F2F2;
             }
         </style>
-
-        <link rel="stylesheet" href="../dist/smartui.min.css">
-        <script src="../dist/smartui.min.js"></script>
+        <link rel="stylesheet" href="../dist/smart.masterpassword.css">
+        <script src="../dist/smartui.dialog.js"></script>
+        <link rel="stylesheet" href="../dist/smart.dialog.css">
+        <script src="../dist/smartui.masterpassword.js"></script>
     </head>
     <body>
         <h1>Master Password</h1>
@@ -38,8 +39,7 @@
             function showDemo() {
                 sui.masterPassword({
                     title:'ENTER YOUR MASTER PASSWORD',
-                    theme: 'smart-ui-modal-warning',
-                    button: { type:'danger', text: 'Enter'},
+                    theme: 'smart-ui-modal-default',
                     message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
                 }).then((rs)=>{
                     alert(rs);

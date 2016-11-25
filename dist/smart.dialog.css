@@ -225,3 +225,6 @@
 
 .smart-ui.smart-ui-modal.smart-ui-modal-danger .smart-ui-modal-sign {
   background: #a94442; }
+
+.smart-ui.smart-ui-modal .no-buttons {
+  padding-bottom: 20px; }

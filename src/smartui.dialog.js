@@ -169,10 +169,11 @@
             fieldType: 'password',
             maxLength: 4,
             required: true,
-            button: { type:'warning', text: 'OK'}
+            autoSubmit: true
+            // button: { type:'warning', text: 'OK'}
         }, options);
 
-        def.button.func = () => {
+        let submit = ()=>{
             let val = input.val();
             if(def.required && !val){
                 return;
@@ -183,7 +184,15 @@
             deferred.resolve(val);
             dialog.close();
         };
+
         let content = $('<div></div>');
+        if(def.button){
+            def.button.func = () => {
+                submit();
+            };
+        }else{
+            content.addClass('no-buttons');
+        }
         let message = $(`<p>${def.message}</p>`);
         input = $(`<input class="smart-ui-modal-form-field" autofocus="true" type="${def.fieldType}" maxlength="${def.fieldMaxLength}"/>`);
         content.append([message, input]);
@@ -192,9 +201,15 @@
             title: def.title,
             theme: def.theme,
             message: content,
-            buttons: [def.button]
+            buttons: def.button ? [def.button] : []
         });
-        input.masterPassword();
+
+        input.masterPassword({callback: ()=>{
+            let val = input.val();
+            if(val && def.maxLength && val.length == def.maxLength){
+                submit();
+            };
+        }});
         return deferred.promise();
     };
 

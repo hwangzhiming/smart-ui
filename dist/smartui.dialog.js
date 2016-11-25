@@ -177,10 +177,11 @@
             fieldType: 'password',
             maxLength: 4,
             required: true,
-            button: { type: 'warning', text: 'OK' }
+            autoSubmit: true
+            // button: { type:'warning', text: 'OK'}
         }, options);
 
-        def.button.func = function () {
+        var submit = function submit() {
             var val = input.val();
             if (def.required && !val) {
                 return;
@@ -191,7 +192,15 @@
             deferred.resolve(val);
             dialog.close();
         };
+
         var content = $('<div></div>');
+        if (def.button) {
+            def.button.func = function () {
+                submit();
+            };
+        } else {
+            content.addClass('no-buttons');
+        }
         var message = $('<p>' + def.message + '</p>');
         input = $('<input class="smart-ui-modal-form-field" autofocus="true" type="' + def.fieldType + '" maxlength="' + def.fieldMaxLength + '"/>');
         content.append([message, input]);
@@ -200,9 +209,15 @@
             title: def.title,
             theme: def.theme,
             message: content,
-            buttons: [def.button]
+            buttons: def.button ? [def.button] : []
         });
-        input.masterPassword();
+
+        input.masterPassword({ callback: function callback() {
+                var val = input.val();
+                if (val && def.maxLength && val.length == def.maxLength) {
+                    submit();
+                };
+            } });
         return deferred.promise();
     };
 })(jQuery, window);
