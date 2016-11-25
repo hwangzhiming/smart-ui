@@ -37,7 +37,11 @@
         <script>
             $('#masterPasswordText').masterPassword();
             function showDemo() {
-                sui.modal();
+                sui.masterPassword().then((rs)=>{
+                    alert(rs);
+                }, ()=>{
+                    alert('cancel');
+                });
             };
         </script>
     </body>

@@ -57,6 +57,7 @@
             };
             elem.after(commponent);
             elem.data('inited', true);
+            return commponent;
         };
 
         $(this).each(function (i, item) {
