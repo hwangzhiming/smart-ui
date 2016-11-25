@@ -14,7 +14,8 @@
     </head>
     <body>
         <h1>Master Password</h1>
-        <input type="password" id="masterPasswordText" length="5">
+        <input type="password" class="masterPasswordText" length="5">
+        <input type="password" class="masterPasswordText" length="5">
         <button onclick="showDemo()">Click</button>
         <!--pre>
             <div class="master-password">
@@ -35,11 +36,16 @@
             </div>
         </pre-->
         <script>
-            $('#masterPasswordText').masterPassword();
+            $('.masterPasswordText').masterPassword();
             function showDemo() {
                 sui.masterPassword({
                     title:'ENTER YOUR MASTER PASSWORD',
                     theme: 'smart-ui-modal-default',
+                    action: function(val){
+                        let deferred = jQuery.Deferred();
+                        setTimeout(deferred.resolve, 5000);
+                        return deferred.promise();
+                    },
                     message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
                 }).then((rs)=>{
                     alert(rs);

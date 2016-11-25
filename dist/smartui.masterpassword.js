@@ -65,7 +65,7 @@
                 fields[0].focus();
             };
             elem.data('inited', true);
-            return commponent;
+            return elem;
         };
 
         $(this).each(function (i, item) {

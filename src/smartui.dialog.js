@@ -50,6 +50,7 @@
     };
 
     window.sui.alert = function (options) {
+        let deferred = jQuery.Deferred();
         if (typeof options === 'string') {
             options = {message: options};
         };
@@ -64,6 +65,7 @@
 
         def.button.func =() => {
             dialog.close();
+            deferred.resolve();
         };
         let alertContent = $('<div></div>');
         let message = $(`<p>${def.message}</p>`);
@@ -75,6 +77,7 @@
             message: alertContent,
             buttons: [def.button]
         });
+        return deferred.promise();
     };
 
     window.sui.prompt = function (options) {
@@ -89,6 +92,7 @@
             maxLength: null,
             required: true,
             pattern: null,
+            action: null,
             button: { type:'warning', text: 'OK'}
         }, options);
 
@@ -127,8 +131,19 @@
                 input.focus();
                 return;
             };
-            deferred.resolve(val);
-            dialog.close();
+            if(def.action){
+                let promise = def.action(val);
+                if(promise && promise.then){
+                    promise.then(()=>{
+                        deferred.resolve(val);
+                        dialog.close();
+                    });
+                }
+            }
+            else{
+                deferred.resolve(val);
+                dialog.close();
+            }
         };
         let cancelBtn = {
             type:'default',
@@ -169,6 +184,7 @@
             fieldType: 'password',
             maxLength: 4,
             required: true,
+            action: null,
             autoSubmit: true
             // button: { type:'warning', text: 'OK'}
         }, options);
@@ -181,8 +197,19 @@
             if(def.maxLength && val.length < def.maxLength){
                 return;
             }
-            deferred.resolve(val);
-            dialog.close();
+            if(def.action){
+                let promise = def.action(val);
+                if(promise && promise.then){
+                    promise.then(()=>{
+                        deferred.resolve(val);
+                        dialog.close();
+                    });
+                }
+            }
+            else{
+                deferred.resolve(val);
+                dialog.close();
+            }
         };
 
         let content = $('<div></div>');
