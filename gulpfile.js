@@ -47,7 +47,7 @@ gulp.task('publish:scss', ['build:scss'], ()=> {
 });
 
 gulp.task('publish', ()=> {
-    return runSequence('clean', 'publish:es6', 'publish:scss', 'pack:css', 'pack:js');
+    return runSequence('clean', 'publish:es6', 'publish:scss', 'pack:css', 'pack:js', 'doc');
 });
 
 gulp.task('pack:css', ()=> {
@@ -62,6 +62,11 @@ gulp.task('pack:js', ()=> {
         .pipe(concat('smartui.min.js'))
         .pipe(gulp.dest('./dist/'));
 
+});
+
+gulp.task('doc', () => {
+    return gulp.src(['./dist/smartui.min.js', './dist/smartui.min.css'])
+        .pipe(gulp.dest('./docs/'));
 });
 
 gulp.task('watch',() => {
