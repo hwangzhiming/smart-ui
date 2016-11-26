@@ -257,7 +257,7 @@
                     promise.then(function () {
                         deferred.resolve(val, dialog);
                         dialog.close();
-                    }, function (msg) {
+                    }, function () {
                         dialog.enable();
                     });
                 }
