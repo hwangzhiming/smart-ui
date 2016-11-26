@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "A web ui toolkit",
   "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-run-sequence": "^0.3.2",
-    "gulp-sass": "^2.3.2",
-    "systemjs": "^0.19.41"
   },
   "engines": {
     "node": "6.3.0"
@@ -21,7 +16,12 @@
     "gulp-cssmin": "^0.1.7",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.0.0",
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-run-sequence": "^0.3.2",
+    "gulp-sass": "^2.3.2",
+    "systemjs": "^0.19.41"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
