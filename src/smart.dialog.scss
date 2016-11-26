@@ -2,7 +2,7 @@
 $color-primary: #79ADEA;
 $color-danger:  #d26a68;
 $color-warning: #f2711c;
-$color-success: #9df283;
+$color-success: #4caf50;
 
 @mixin button($color, $textColor) {
     background-color: $color;
@@ -345,6 +345,11 @@ $color-success: #9df283;
     &.smart-ui-modal-danger{
         .smart-ui-modal-sign{
             background: $color-danger;
+        }
+    }
+    &.smart-ui-modal-success{
+        .smart-ui-modal-sign{
+            background: $color-success;
         }
     }
 

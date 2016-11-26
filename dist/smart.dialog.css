@@ -285,18 +285,18 @@
   opacity: 0.8; }
 
 .smart-ui.smart-ui-modal .smart-ui-modal-button.success {
-  background-color: #9df283;
-  border-color: #8bf06c;
+  background-color: #4caf50;
+  border-color: #449d48;
   color: #FFF; }
 
 .smart-ui.smart-ui-modal .smart-ui-modal-button.success:hover {
-  border-color: #54e827;
-  background-color: #8bf06c; }
+  border-color: #2d682f;
+  background-color: #449d48; }
 
 .smart-ui.smart-ui-modal .smart-ui-modal-button.success:disabled {
-  color: #c1f7b1;
-  background-color: #9df283;
-  border-color: #79ed55;
+  color: #6ec071;
+  background-color: #4caf50;
+  border-color: #3d8b40;
   opacity: 0.8; }
 
 .smart-ui.smart-ui-modal .sui-error {
@@ -316,6 +316,9 @@
 
 .smart-ui.smart-ui-modal.smart-ui-modal-danger .smart-ui-modal-sign {
   background: #d26a68; }
+
+.smart-ui.smart-ui-modal.smart-ui-modal-success .smart-ui-modal-sign {
+  background: #4caf50; }
 
 .smart-ui.smart-ui-modal .no-buttons {
   padding-bottom: 20px; }

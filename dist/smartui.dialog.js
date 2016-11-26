@@ -5,13 +5,13 @@
     window.sui.modal = function (options) {
 
         var def = $.extend({
-            theme: 'smart-ui-modal-default',
+            theme: 'default',
             type: 'info',
             title: 'Title',
             message: 'Thanks for try SmartUI!',
             buttons: []
         }, options);
-        var modal = $('<div class="smart-ui smart-ui-modal ' + def.theme + '"/>');
+        var modal = $('<div class="smart-ui smart-ui-modal smart-ui-modal-' + def.theme + '"/>');
         var modalContent = $('<div class="smart-ui-modal-content"/>');
         var signDom = $('<div class="smart-ui-modal-sign ' + def.type + '"><span></span></div>');
         var modalClosebtn = $('<div class="smart-ui-modal-close">CLOSE</div>');
@@ -69,7 +69,7 @@
         };
         var dialog = void 0;
         var def = $.extend({
-            theme: 'smart-ui-modal-default',
+            theme: 'default',
             type: 'info',
             title: 'Alert',
             message: 'This is alert!',
@@ -100,7 +100,7 @@
         };
         var dialog = void 0;
         var def = $.extend({
-            theme: 'smart-ui-modal-default',
+            theme: 'default',
             type: 'question',
             title: 'Confirm',
             message: 'This is confirm!',
@@ -134,7 +134,7 @@
         var dialog = void 0,
             input = void 0;
         var def = $.extend({
-            theme: 'smart-ui-modal-default',
+            theme: 'default',
             type: 'question',
             title: 'Prompt',
             message: 'This is Prompt!',
@@ -230,7 +230,7 @@
         var dialog = void 0,
             input = void 0;
         var def = $.extend({
-            theme: 'smart-ui-modal-default',
+            theme: 'default',
             type: 'question',
             title: 'Master Password',
             message: 'Please enter your master password!',
@@ -239,7 +239,7 @@
             required: true,
             action: null,
             autoSubmit: true
-            // button: { type:'warning', text: 'OK'}
+            // button: { type:'warning', text: 'Enter'}
         }, options);
 
         var submit = function submit() {
@@ -288,7 +288,7 @@
 
         input.masterPassword({ callback: function callback() {
                 var val = input.val();
-                if (val && def.maxLength && val.length == def.maxLength) {
+                if (val && def.maxLength && val.length == def.maxLength && def.autoSubmit) {
                     submit();
                 };
             } });

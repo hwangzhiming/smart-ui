@@ -7,16 +7,24 @@
                 background: #F2F2F2;
             }
         </style>
-        <link rel="stylesheet" href="../dist/smart.masterpassword.css">
-        <script src="../dist/smartui.dialog.js"></script>
-        <link rel="stylesheet" href="../dist/smart.dialog.css">
-        <script src="../dist/smartui.masterpassword.js"></script>
+        <link rel="stylesheet" href="../dist/smartui.min.css">
+        <script src="../dist/smartui.min.js"></script>
     </head>
     <body>
-        <h1>Master Password</h1>
-        <input type="password" class="masterPasswordText" length="5">
-        <input type="password" class="masterPasswordText" length="5">
-        <button onclick="showDemo()">Click</button>
+        <h1>Smart UI</h1>
+        <p>
+            <button onclick="alert()">Alert</button>
+            <button onclick="myprompt()">Prompt</button>
+            <button onclick="promptWithValidation()">Prompt with validation and action</button>
+            <button onclick="showMasterPassword()">Master Password</button>
+            <button onclick="showMasterPasswordAuto()">Master Password (Auto submit)</button>
+        </p>
+        <p>
+            <button onclick="alertWarning()">Warning</button>
+            <button onclick="alertSuccess()">Success</button>
+            <button onclick="alertDanger()">Danger</button>
+        </p>
+
         <!--pre>
             <div class="master-password">
                 <div class="master-password-content">
@@ -36,36 +44,34 @@
             </div>
         </pre-->
         <script>
-            $('.masterPasswordText').masterPassword();
-            function showDemo() {
-                /*sui.masterPassword({
-                    title:'ENTER YOUR MASTER PASSWORD',
-                    theme: 'smart-ui-modal-default',
-                    action: function(val){
-                        let deferred = jQuery.Deferred();
-                        //setTimeout(deferred.resolve, 4000);
-                        setTimeout(deferred.reject, 4000);
-                        return deferred.promise();
-                    },
-                    button: { type:'danger', text: 'Enter'},
-                    message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
-                }).then((rs, test)=>{
+            function alert(){
+                sui.alert('This is alert.');
+            }
+            function alertWarning(){
+                sui.alert({message: 'This is alert.', theme:'warning', button: { type:'warning', text: 'OK'},});
+            }
+            function alertSuccess(){
+                sui.alert({message: 'This is alert.', theme:'success'});
+            }
+            function alertDanger(){
+                sui.alert({message: 'This is alert.', theme:'danger', type:'warning'});
+            }
+            function myprompt(){
+                sui.prompt('Please enter your phone number').then((rs)=>{
                     sui.alert(rs);
                 }, ()=>{
-                    alert('cancel');
-                });*/
-                /*sui.confirm('test').then(function () {
-                    sui.alert('Done');
-                });*/
+                    sui.alert('cancel');
+                });
+            }
+            function promptWithValidation(){
                 sui.prompt({
-                    message: 'test',
+                    message: 'Please enter your phone number',
                     pattern:'\\d',
-                    maxLength: 4,
-                    theme: 'smart-ui-modal-default',
+                    maxLength: 12,
+                    theme: 'default',
                     action: function(val){
                         let deferred = jQuery.Deferred();
-                        //setTimeout(deferred.resolve, 4000);
-                        setTimeout(deferred.reject, 4000);
+                        setTimeout(deferred.resolve, 4000);
                         return deferred.promise();
                     }
                 }).then((rs)=>{
@@ -73,8 +79,41 @@
                 }, ()=>{
                     sui.alert('cancel');
                 });
-                //sui.alert('alert');
-            };
+            }
+            function showMasterPassword(){
+                sui.masterPassword({
+                    title:'ENTER YOUR MASTER PASSWORD',
+                    theme: 'default',
+                    autoSubmit: false,
+                    button: { type:'primary', text: 'OK'},
+                    action: function(val){
+                        let deferred = jQuery.Deferred();
+                        setTimeout(deferred.resolve, 3000);
+                        return deferred.promise();
+                    },
+                    message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
+                }).then((rs, dialog)=>{
+                    sui.alert(rs);
+                }, ()=>{
+                    sui.alert('cancel');
+                });
+            }
+            function showMasterPasswordAuto(){
+                sui.masterPassword({
+                    title:'ENTER YOUR MASTER PASSWORD',
+                    theme: 'default',
+                    action: function(val){
+                        let deferred = jQuery.Deferred();
+                        setTimeout(deferred.resolve, 3000);
+                        return deferred.promise();
+                    },
+                    message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
+                }).then((rs, dialog)=>{
+                    sui.alert(rs);
+                }, ()=>{
+                    sui.alert('cancel');
+                });
+            }
         </script>
     </body>
 </html>
