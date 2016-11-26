@@ -1,3 +1,26 @@
+
+$color-primary: #79ADEA;
+$color-danger:  #d26a68;
+$color-warning: #f2711c;
+$color-success: #9df283;
+
+@mixin button($color, $textColor) {
+    background-color: $color;
+    border-color: darken($color, 5);
+    color: $textColor;
+    &:hover{
+        border-color: darken($color, 20);
+        background-color: darken($color, 5);
+    }
+
+    &:disabled{
+        color: lighten($color, 10);
+        background-color: $color;
+        border-color: darken($color, 10);
+        opacity: 0.8;
+    }
+}
+
 @-webkit-keyframes fadeIn {
     from {
         opacity: 0;
@@ -91,6 +114,32 @@
     }
 }
 
+@-webkit-keyframes slideOutUp {
+    from {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        visibility: hidden;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+}
+
+@keyframes slideOutUp {
+    from {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        visibility: hidden;
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+}
+
 
 .smart-ui{
     font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
@@ -144,6 +193,14 @@
 
         -webkit-animation-name: slideOutDown;
         animation-name: slideOutDown;
+        box-shadow: 0 0 10px #EEE;
+
+        input[type='text'],input[type='password']{
+            &:disabled{
+                background: #EEE;
+                color: #AAA;
+            }
+        }
     }
     .smart-ui-modal-sign{
         display: block;
@@ -212,6 +269,7 @@
         box-sizing: border-box;
         border-radius: 3px;
         font-size: 14px;
+        background: #FFF;
     }
     input, button{
         outline:none;
@@ -228,33 +286,45 @@
         color: #555;
         margin: 5px 0;
         background: #FFF;
-        border: 1px solid #CCC;
+        border: 1px solid #E1E1E1;
         cursor: pointer;
         text-decoration: none;
         box-sizing: border-box;
+        &:hover{
+            background: #F2F2F2;
+        }
+
+        &:disabled{
+            color: #999;
+            border-color: #ECECEC;
+            opacity: 0.8;
+        }
+
+
+        &.primary{
+            @include button($color-primary, #FFF);
+        }
 
         &.warning{
-            background-color: #f2711c;
-            border-color: #f2711c;
-            color: #fff;
-            &:hover{
-                background-color: darken(#f2711c, 5);
-            }
+            @include button($color-warning, #FFF);
         }
 
         &.danger{
-            background: #a94442;
-            color: #FFF;
-            border-color: #a94442;
-            &:hover{
-                background-color: darken(#a94442, 5);
-            }
+            @include button($color-danger, #FFF);
+        }
+
+        &.info{
+            @include button($color-primary, #FFF);
+        }
+
+        &.success{
+            @include button($color-success, #FFF);
         }
     }
 
     .sui-error{
-        background: lighten(#d26a68, 30);
-        border-color: #d26a68;
+        background: lighten($color-danger, 30);
+        border-color: $color-danger;
     }
 
     &.smart-ui-modal-warning{
@@ -263,18 +333,18 @@
             border-color: #ffe086;
 
             .smart-ui-modal-title{
-                color: #f2711c;
+                color: $color-warning;
                 border-bottom-color: #efdba3;
             }
         }
         .smart-ui-modal-sign{
-            background: #f2711c;
+            background: $color-warning;
         }
     }
 
     &.smart-ui-modal-danger{
         .smart-ui-modal-sign{
-            background: #a94442;
+            background: $color-danger;
         }
     }
 

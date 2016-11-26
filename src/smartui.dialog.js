@@ -38,12 +38,19 @@
         modal.open = () => {
             modal.addClass('opened');
         };
+        modal.disable = ()=>{
+            modal.find('input,button').attr('disabled','disabled');
+        };
+        modal.enable = ()=>{
+            modal.find('input,button').removeAttr('disabled');
+        };
         modal.close = () => {
             modal.removeClass('opened');
             setTimeout(()=>{
                 modal.remove();
             }, 200);
         };
+        modal.placeholder = placeholder;
         modalClosebtn.on('click', modal.close);
         setTimeout(modal.open, 0);
         return modal;
@@ -65,7 +72,7 @@
 
         def.button.func =() => {
             dialog.close();
-            deferred.resolve();
+            deferred.resolve(dialog);
         };
         let alertContent = $('<div></div>');
         let message = $(`<p>${def.message}</p>`);
@@ -76,6 +83,43 @@
             theme: def.theme,
             message: alertContent,
             buttons: [def.button]
+        });
+        return deferred.promise();
+    };
+
+
+    window.sui.confirm = function (options) {
+        let deferred = jQuery.Deferred();
+        if (typeof options === 'string') {
+            options = {message: options};
+        };
+        let dialog;
+        let def =  $.extend({
+            theme: 'smart-ui-modal-default',
+            type: 'question',
+            title:'Confirm',
+            message: 'This is confirm!',
+            confirm: { type:'info', text: 'OK'},
+            cancel: { type:'default', text: 'Cancel'}
+        }, options);
+
+        def.confirm.func =() => {
+            dialog.close();
+            deferred.resolve(dialog);
+        };
+        def.cancel.func =() => {
+            dialog.close();
+            deferred.reject(dialog);
+        };
+        let alertContent = $('<div></div>');
+        let message = $(`<p>${def.message}</p>`);
+        alertContent.append([message]);
+        dialog = this.modal({
+            type: def.type,
+            title: def.title,
+            theme: def.theme,
+            message: alertContent,
+            buttons: [def.confirm, def.cancel]
         });
         return deferred.promise();
     };
@@ -93,7 +137,7 @@
             required: true,
             pattern: null,
             action: null,
-            button: { type:'warning', text: 'OK'}
+            button: { type:'primary', text: 'OK'}
         }, options);
 
         const validate = (val) => {
@@ -132,16 +176,19 @@
                 return;
             };
             if(def.action){
+                dialog.disable();
                 let promise = def.action(val);
                 if(promise && promise.then){
                     promise.then(()=>{
-                        deferred.resolve(val);
+                        deferred.resolve(val, dialog);
                         dialog.close();
+                    }, (msg)=>{
+                        dialog.enable();
                     });
                 }
             }
             else{
-                deferred.resolve(val);
+                deferred.resolve(val, dialog);
                 dialog.close();
             }
         };
@@ -168,7 +215,7 @@
             title: def.title,
             theme: def.theme,
             message: content,
-            buttons: [cancelBtn, def.button]
+            buttons: [def.button, cancelBtn]
         });
         return deferred.promise();
     };
@@ -198,16 +245,19 @@
                 return;
             }
             if(def.action){
+                dialog.disable();
                 let promise = def.action(val);
                 if(promise && promise.then){
                     promise.then(()=>{
-                        deferred.resolve(val);
+                        deferred.resolve(val, dialog);
                         dialog.close();
+                    }, (msg)=>{
+                        dialog.enable();
                     });
                 }
             }
             else{
-                deferred.resolve(val);
+                deferred.resolve(val, dialog);
                 dialog.close();
             }
         };

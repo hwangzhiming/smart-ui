@@ -44,12 +44,19 @@
         modal.open = function () {
             modal.addClass('opened');
         };
+        modal.disable = function () {
+            modal.find('input,button').attr('disabled', 'disabled');
+        };
+        modal.enable = function () {
+            modal.find('input,button').removeAttr('disabled');
+        };
         modal.close = function () {
             modal.removeClass('opened');
             setTimeout(function () {
                 modal.remove();
             }, 200);
         };
+        modal.placeholder = placeholder;
         modalClosebtn.on('click', modal.close);
         setTimeout(modal.open, 0);
         return modal;
@@ -71,7 +78,7 @@
 
         def.button.func = function () {
             dialog.close();
-            deferred.resolve();
+            deferred.resolve(dialog);
         };
         var alertContent = $('<div></div>');
         var message = $('<p>' + def.message + '</p>');
@@ -82,6 +89,42 @@
             theme: def.theme,
             message: alertContent,
             buttons: [def.button]
+        });
+        return deferred.promise();
+    };
+
+    window.sui.confirm = function (options) {
+        var deferred = jQuery.Deferred();
+        if (typeof options === 'string') {
+            options = { message: options };
+        };
+        var dialog = void 0;
+        var def = $.extend({
+            theme: 'smart-ui-modal-default',
+            type: 'question',
+            title: 'Confirm',
+            message: 'This is confirm!',
+            confirm: { type: 'info', text: 'OK' },
+            cancel: { type: 'default', text: 'Cancel' }
+        }, options);
+
+        def.confirm.func = function () {
+            dialog.close();
+            deferred.resolve(dialog);
+        };
+        def.cancel.func = function () {
+            dialog.close();
+            deferred.reject(dialog);
+        };
+        var alertContent = $('<div></div>');
+        var message = $('<p>' + def.message + '</p>');
+        alertContent.append([message]);
+        dialog = this.modal({
+            type: def.type,
+            title: def.title,
+            theme: def.theme,
+            message: alertContent,
+            buttons: [def.confirm, def.cancel]
         });
         return deferred.promise();
     };
@@ -100,7 +143,7 @@
             required: true,
             pattern: null,
             action: null,
-            button: { type: 'warning', text: 'OK' }
+            button: { type: 'primary', text: 'OK' }
         }, options);
 
         var validate = function validate(val) {
@@ -139,15 +182,18 @@
                 return;
             };
             if (def.action) {
+                dialog.disable();
                 var promise = def.action(val);
                 if (promise && promise.then) {
                     promise.then(function () {
-                        deferred.resolve(val);
+                        deferred.resolve(val, dialog);
                         dialog.close();
+                    }, function (msg) {
+                        dialog.enable();
                     });
                 }
             } else {
-                deferred.resolve(val);
+                deferred.resolve(val, dialog);
                 dialog.close();
             }
         };
@@ -174,7 +220,7 @@
             title: def.title,
             theme: def.theme,
             message: content,
-            buttons: [cancelBtn, def.button]
+            buttons: [def.button, cancelBtn]
         });
         return deferred.promise();
     };
@@ -205,15 +251,18 @@
                 return;
             }
             if (def.action) {
+                dialog.disable();
                 var promise = def.action(val);
                 if (promise && promise.then) {
                     promise.then(function () {
-                        deferred.resolve(val);
+                        deferred.resolve(val, dialog);
                         dialog.close();
+                    }, function (msg) {
+                        dialog.enable();
                     });
                 }
             } else {
-                deferred.resolve(val);
+                deferred.resolve(val, dialog);
                 dialog.close();
             }
         };

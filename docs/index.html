@@ -38,30 +38,41 @@
         <script>
             $('.masterPasswordText').masterPassword();
             function showDemo() {
-                sui.masterPassword({
+                /*sui.masterPassword({
                     title:'ENTER YOUR MASTER PASSWORD',
                     theme: 'smart-ui-modal-default',
                     action: function(val){
                         let deferred = jQuery.Deferred();
-                        setTimeout(deferred.resolve, 5000);
+                        //setTimeout(deferred.resolve, 4000);
+                        setTimeout(deferred.reject, 4000);
                         return deferred.promise();
                     },
+                    button: { type:'danger', text: 'Enter'},
                     message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
-                }).then((rs)=>{
-                    alert(rs);
-                }, ()=>{
-                    alert('cancel');
-                });
-                /*sui.prompt({
-                    message: 'test',
-                    pattern:'\\d',
-                    maxLength: 4,
-                    theme: 'smart-ui-modal-warning'
-                }).then((rs)=>{
-                    alert(rs);
+                }).then((rs, test)=>{
+                    sui.alert(rs);
                 }, ()=>{
                     alert('cancel');
                 });*/
+                /*sui.confirm('test').then(function () {
+                    sui.alert('Done');
+                });*/
+                sui.prompt({
+                    message: 'test',
+                    pattern:'\\d',
+                    maxLength: 4,
+                    theme: 'smart-ui-modal-default',
+                    action: function(val){
+                        let deferred = jQuery.Deferred();
+                        //setTimeout(deferred.resolve, 4000);
+                        setTimeout(deferred.reject, 4000);
+                        return deferred.promise();
+                    }
+                }).then((rs)=>{
+                    sui.alert(rs);
+                }, ()=>{
+                    sui.alert('cancel');
+                });
                 //sui.alert('alert');
             };
         </script>

@@ -58,6 +58,24 @@
     -webkit-transform: translate3d(0, 100%, 0);
     transform: translate3d(0, 100%, 0); } }
 
+@-webkit-keyframes slideOutUp {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0); } }
+
+@keyframes slideOutUp {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); }
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0); } }
+
 .smart-ui {
   font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif; }
 
@@ -107,7 +125,12 @@
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-name: slideOutDown;
-  animation-name: slideOutDown; }
+  animation-name: slideOutDown;
+  box-shadow: 0 0 10px #EEE; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-content input[type='text']:disabled, .smart-ui.smart-ui-modal .smart-ui-modal-content input[type='password']:disabled {
+  background: #EEE;
+  color: #AAA; }
 
 .smart-ui.smart-ui-modal .smart-ui-modal-sign {
   display: block;
@@ -170,7 +193,8 @@
   padding: 12px 6px;
   box-sizing: border-box;
   border-radius: 3px;
-  font-size: 14px; }
+  font-size: 14px;
+  background: #FFF; }
 
 .smart-ui.smart-ui-modal input, .smart-ui.smart-ui-modal button {
   outline: none; }
@@ -187,26 +211,93 @@
   color: #555;
   margin: 5px 0;
   background: #FFF;
-  border: 1px solid #CCC;
+  border: 1px solid #E1E1E1;
   cursor: pointer;
   text-decoration: none;
   box-sizing: border-box; }
 
+.smart-ui.smart-ui-modal .smart-ui-modal-button:hover {
+  background: #F2F2F2; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button:disabled {
+  color: #999;
+  border-color: #ECECEC;
+  opacity: 0.8; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.primary {
+  background-color: #79ADEA;
+  border-color: #63a0e7;
+  color: #FFF; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.primary:hover {
+  border-color: #2277db;
+  background-color: #63a0e7; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.primary:disabled {
+  color: #a5c8f1;
+  background-color: #79ADEA;
+  border-color: #4d92e3;
+  opacity: 0.8; }
+
 .smart-ui.smart-ui-modal .smart-ui-modal-button.warning {
   background-color: #f2711c;
-  border-color: #f2711c;
-  color: #fff; }
+  border-color: #e7640d;
+  color: #FFF; }
 
 .smart-ui.smart-ui-modal .smart-ui-modal-button.warning:hover {
+  border-color: #9f4509;
   background-color: #e7640d; }
 
+.smart-ui.smart-ui-modal .smart-ui-modal-button.warning:disabled {
+  color: #f58f4c;
+  background-color: #f2711c;
+  border-color: #cf590c;
+  opacity: 0.8; }
+
 .smart-ui.smart-ui-modal .smart-ui-modal-button.danger {
-  background: #a94442;
-  color: #FFF;
-  border-color: #a94442; }
+  background-color: #d26a68;
+  border-color: #cc5754;
+  color: #FFF; }
 
 .smart-ui.smart-ui-modal .smart-ui-modal-button.danger:hover {
-  background-color: #973d3b; }
+  border-color: #a33331;
+  background-color: #cc5754; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.danger:disabled {
+  color: #de918f;
+  background-color: #d26a68;
+  border-color: #c64341;
+  opacity: 0.8; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.info {
+  background-color: #79ADEA;
+  border-color: #63a0e7;
+  color: #FFF; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.info:hover {
+  border-color: #2277db;
+  background-color: #63a0e7; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.info:disabled {
+  color: #a5c8f1;
+  background-color: #79ADEA;
+  border-color: #4d92e3;
+  opacity: 0.8; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.success {
+  background-color: #9df283;
+  border-color: #8bf06c;
+  color: #FFF; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.success:hover {
+  border-color: #54e827;
+  background-color: #8bf06c; }
+
+.smart-ui.smart-ui-modal .smart-ui-modal-button.success:disabled {
+  color: #c1f7b1;
+  background-color: #9df283;
+  border-color: #79ed55;
+  opacity: 0.8; }
 
 .smart-ui.smart-ui-modal .sui-error {
   background: #f5dede;
@@ -224,7 +315,7 @@
   background: #f2711c; }
 
 .smart-ui.smart-ui-modal.smart-ui-modal-danger .smart-ui-modal-sign {
-  background: #a94442; }
+  background: #d26a68; }
 
 .smart-ui.smart-ui-modal .no-buttons {
   padding-bottom: 20px; }
