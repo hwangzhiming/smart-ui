@@ -1,8 +1,7 @@
 {
-  "name": "jquery.masterpassword",
+  "name": "smartui",
   "version": "1.0.0",
-  "description": "A jQuery plugin for master password validation",
-  "main": "gulpfile.js",
+  "description": "A web ui toolkit",
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
@@ -29,12 +28,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hwangzhiming/jquery.masterpassword.git"
+    "url": "git+https://github.com/hwangzhiming/SmartUI.git"
   },
-  "author": "",
+  "author": {
+    "name": "Alex Huang",
+    "email": "hwangzhiming@gmail.com",
+    "url": "http://www.topming.com"
+  },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hwangzhiming/jquery.masterpassword/issues"
+    "url": "https://github.com/hwangzhiming/SmartUI/issues"
   },
-  "homepage": "https://github.com/hwangzhiming/jquery.masterpassword#readme"
+  "homepage": "https://github.com/hwangzhiming/jquerySmartUI#readme"
 }
