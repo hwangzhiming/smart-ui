@@ -102,9 +102,11 @@
   animation-name: fadeOut;
   font-size: 14px;
   line-height: 18px;
-  color: #555; }
+  color: #555;
+  visibility: hidden; }
 
 .smart-ui.smart-ui-modal.opened {
+  visibility: visible;
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn; }
 
