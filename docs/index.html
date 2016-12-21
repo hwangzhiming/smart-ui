@@ -1,28 +1,130 @@
 <html>
     <head>
         <title> Smart UI</title>
+        <link rel="stylesheet" href="https://unpkg.com/smartui@1.0.2/dist/smartui.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
         <style>
             body{
-                background: #F2F2F2;
+                font-family: Arial;
+                padding: 50px;
+            }
+
+            .btn{
+                width: auto;
+                text-align: center;
+                padding: 12px;
+            }
+
+            .hljs{
+                background: #fbfeff;
+                border: 1px solid #d3e5f3;
             }
         </style>
-        <link rel="stylesheet" href="https://unpkg.com/smartui@1.0.2/dist/smartui.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
         <script type="text/javascript" src="https://unpkg.com/jquery@3.1.1"></script>
         <script src="https://unpkg.com/smartui@1.0.2/dist/smartui.min.js"></script>
     </head>
-    <body>
+    <body class="container">
         <h1>Smart UI</h1>
         <p>
-            <button onclick="alert()">Alert</button>
-            <button onclick="myprompt()">Prompt</button>
-            <button onclick="promptWithValidation()">Prompt with validation and action</button>
-            <button onclick="showMasterPassword()">Master Password</button>
-            <button onclick="showMasterPasswordAuto()">Master Password (Auto submit)</button>
+            <button class="btn btn-default" onclick="alert()">Alert</button>
+            <pre class="hightlight">
+                <code class="javascript">
+                    sui.alert('This is alert.');
+                </code>
+            </pre>
+            <button class="btn btn-default" onclick="myprompt()">Prompt</button>
+            <pre class="hightlight">
+                <code class="javascript">
+                    sui.prompt('Please enter your phone number').then((rs)=>{
+                        sui.alert(rs);
+                    }, ()=>{
+                        sui.alert('cancel');
+                    });
+                </code>
+            </pre>
+            <button class="btn btn-default" onclick="promptWithValidation()">Prompt with validation and action</button>
+            <pre class="hightlight">
+                <code class="javascript">
+                    sui.prompt({
+                        message: 'Please enter your phone number',
+                        pattern:'\\d',
+                        maxLength: 12,
+                        theme: 'default',
+                        action: function(val){
+                            let deferred = jQuery.Deferred();
+                            setTimeout(deferred.resolve, 4000);
+                            return deferred.promise();
+                        }
+                    }).then((rs)=>{
+                        sui.alert(rs);
+                    }, ()=>{
+                        sui.alert('cancel');
+                    });
+                </code>
+            </pre>
+            <button class="btn btn-default" onclick="showMasterPassword()">Master Password</button>
+            <pre class="hightlight">
+                <code class="javascript">
+                sui.masterPassword({
+                    title:'ENTER YOUR MASTER PASSWORD',
+                    theme: 'default',
+                    autoSubmit: false,
+                    button: { type:'primary', text: 'OK'},
+                    action: function(val){
+                        let deferred = jQuery.Deferred();
+                        setTimeout(deferred.resolve, 3000);
+                        return deferred.promise();
+                    },
+                    message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
+                }).then((rs, dialog)=>{
+                    sui.alert(rs);
+                }, ()=>{
+                    sui.alert('cancel');
+                });
+                </code>
+            </pre>
+            <button class="btn btn-default" onclick="showMasterPasswordAuto()">Master Password (Auto submit)</button>
+            <pre class="hightlight">
+                <code class="javascript">
+                sui.masterPassword({
+                    title:'ENTER YOUR MASTER PASSWORD',
+                    theme: 'default',
+                    autoSubmit: false,
+                    button: { type:'primary', text: 'OK'},
+                    action: function(val){
+                        let deferred = jQuery.Deferred();
+                        setTimeout(deferred.resolve, 3000);
+                        return deferred.promise();
+                    },
+                    message:'The passwords of <strong>your</strong> connections will be stored encrypted in our database, a master password will be used to access the passwords.'
+                }).then((rs, dialog)=>{
+                    sui.alert(rs);
+                }, ()=>{
+                    sui.alert('cancel');
+                });
+                </code>
+            </pre>
         </p>
         <p>
-            <button onclick="alertWarning()">Warning</button>
-            <button onclick="alertSuccess()">Success</button>
-            <button onclick="alertDanger()">Danger</button>
+            <button class="btn btn-warning" onclick="alertWarning()">Warning</button>
+            <pre class="hightlight">
+                <code class="javascript">
+                    sui.alert({message: 'This is alert.', theme:'warning', button: { type:'warning', text: 'OK'},});
+                </code>
+            </pre>
+            <button class="btn btn-success" onclick="alertSuccess()">Success</button>
+            <pre class="hightlight">
+                <code class="javascript">
+                    sui.alert({message: 'This is alert.', theme:'success'});
+                </code>
+            </pre>
+            <button class="btn btn-danger" onclick="alertDanger()">Danger</button>
+            <pre class="hightlight">
+                <code class="javascript">
+                        sui.alert({message: 'This is alert.', theme:'danger', type:'warning'});
+                </code>
+            </pre>
         </p>
 
         <!--pre>
@@ -115,5 +217,6 @@
                 });
             }
         </script>
+        <script>hljs.initHighlightingOnLoad();</script>
     </body>
 </html>
