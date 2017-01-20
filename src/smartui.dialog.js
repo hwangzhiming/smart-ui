@@ -8,7 +8,8 @@
             type: 'info',
             title:'Title',
             message: 'Thanks for try SmartUI!',
-            buttons: []
+            buttons: [],
+            opened: null
         }, options);
         let modal = $(`<div class="smart-ui smart-ui-modal smart-ui-modal-${def.theme}"/>`);
         let modalContent = $('<div class="smart-ui-modal-content"/>');
@@ -37,6 +38,9 @@
         modal.append(modalContent).appendTo($('body'));
         modal.open = () => {
             modal.addClass('opened');
+            if (def.opened && typeof def.opened ==='function') {
+                def.opened(modal);
+            }
         };
         modal.disable = ()=>{
             modal.find('input,button').attr('disabled','disabled');
@@ -278,14 +282,19 @@
             title: def.title,
             theme: def.theme,
             message: content,
-            buttons: def.button ? [def.button] : []
+            buttons: def.button ? [def.button] : [],
+            opened: (d) => {
+                setTimeout(() => {
+                    d.find('input.smart-ui-master-password-field').eq(0).focus();
+                }, 200);
+            }
         });
 
         input.masterPassword({callback: ()=>{
             let val = input.val();
             if(val && def.maxLength && val.length == def.maxLength && def.autoSubmit){
                 submit();
-            };
+            }
         }});
         return deferred.promise();
     };

@@ -35,8 +35,7 @@
                 field.on('keyup',(event) => {
                     const keyCode = event.which || event.keyCode;
                     if( (keyCode>=48 && keyCode <=57) || (keyCode>=96 && keyCode <=105)){
-
-                        fields[currentActive].val(event.key);
+                        // fields[currentActive].val(event.key);
                         if (currentActive < passwordLength-1) {
                             fields[++currentActive].focus();
                         }
@@ -62,12 +61,12 @@
                 });
                 fields.push(field);
                 commponent.append(field);
-            };
+            }
             elem.after(commponent);
             if(autofocus && fields.length){
                 fields[0].focus();
-            };
-            elem.data('inited', true)
+            }
+            elem.data('inited', true);
             return elem;
         };
 
