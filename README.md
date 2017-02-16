@@ -1,1 +1,1 @@
-[Demo](https://hwangzhiming.github.io/SmartUI/)
+[Demo](https://hwangzhiming.github.io/smart-ui/)
